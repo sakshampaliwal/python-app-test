@@ -18,7 +18,7 @@ phases:
   build:
     commands:
       - echo "Building Docker Image"
-      - echo "$Docker-Password" | docker login -u "$Docker-Username" --password-stdin "$Docker-URL"
+      - echo $"Docker-Password" | docker login -u $"Docker-Username" --password-stdin $"Docker-URL"
       - docker build -t "$Docker-URL/$Docker-Username/simple-flask-app:latest" .
       - docker push "$Docker-URL/$Docker-Username/simple-flask-app"
   post_build:
