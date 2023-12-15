@@ -1,0 +1,27 @@
+version: 0.2
+
+env:
+  parameter-store:
+    Docker-Username: /myflaskapp/docker-credentials/username
+    Docker-Password: /myflaskapp/docker-credentials/password
+    Docker-URL: /myflaskapp/docker-url
+     
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+
+  pre_build:
+    commands:
+      - echo "Installing Dependencies"
+      - pip install -r Requirements.txt
+  build:
+    commands:
+      - echo "Building Docker Image"
+      - echo "$Docker-Password" | docker login -u "$Docker-Username" --password-stdin "$Docker-URL"
+      - docker build -t "$Docker-URL/$Docker-Username/simple-flask-app:latest" .
+      - docker push "$Docker-URL/$Docker-Username/simple-flask-app"
+  post_build:
+    commands:
+      - echo "Build Successful"
+      
