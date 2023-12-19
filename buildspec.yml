@@ -27,4 +27,4 @@ phases:
       - echo "Build Successful"
 artifacts:
   files:
-    - dist/ abc.jar
+    - dist/ abhi1.jar
