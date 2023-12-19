@@ -21,11 +21,10 @@ phases:
       - echo "$DockerPassword" | docker login -u "$DockerUsername" --password-stdin 
       - docker build -t "$DockerUsername/simple-flask-app:latest" .
       - docker push "$DockerUsername/simple-flask-app:latest"
+      - dir dist
   post_build:
     commands:
       - echo "Build Successful"
 artifacts:
   files:
-    - '**/*'
-  base-directory: /
-  discard-paths: no
+    - dist/ abc.jar
